@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Apps</title>
+</head>
+
+<body>
+    {% if app_list %}
+        {% for app in app_list %}
+            <img src="{{ app.get_icon_url }}">
+            <p>{{ app.name }}</p>
+        {% endfor %}
+    {% else %}
+        <p>No apps have been imported, or you don't own any apps.</p>
+    {% endif %}
+</body>
+
+</html>

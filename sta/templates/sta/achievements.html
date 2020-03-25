@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    {% if ach_list %}
+        {% for ach in ach_list %}
+            <div>
+                <img src="{{ ach.get_icon_url }}">
+                <p>{{ ach.display_name }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No achievements found</p>
+    {% endif %}
+</body>
+</html>
