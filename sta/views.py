@@ -21,7 +21,6 @@ def achievements(request, userid, appid):
     user = determine_user(userid)
     achievements = Achievement.objects.filter(app=App.objects.get(pk=appid)).annotate(achieved=Case(When(users=user, then=Value(True)), default=Value(False), output_field=BooleanField())).order_by('-percentage')
     return render(request, "sta/achievements.html", {"ach_list": achievements})
-
      
 def import_user(request, userid):
     load_player(userid)
@@ -31,7 +30,10 @@ def import_apps(request, userid):
     load_player_apps(userid)
     return render(request, "sta/success.html", {"item": "apps"})
 
-def import_achievements(request, userid, appid):
+def import_achievements(request, appid):
     load_achievements(appid)
+    return render(request, "sta/success.html", {"item": f"achievements for {appid}"})
+
+def import_achievement_progress(request, userid, appid):
     load_player_achievements(userid, appid)
-    return render(request, "sta/success.html", {"item": "achievements"})
+    return render(request, "sta/success.html", {"item": f"achievements for user {userid}"})
