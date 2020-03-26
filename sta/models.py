@@ -35,7 +35,7 @@ class Achievement(models.Model):
     users = models.ManyToManyField(User)
     name = models.CharField(max_length=30, primary_key=True)
     display_name = models.CharField(max_length=30)
-    description = models.CharField(max_length=60)
+    description = models.CharField(max_length=60, default='')
     percentage = models.DecimalField(max_digits=5, decimal_places=2)
     hidden = models.BooleanField()
     icon = models.CharField(max_length=50)

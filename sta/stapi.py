@@ -67,6 +67,9 @@ def load_achievements(appid):
             icon=get_last_url_part(ach['icon']),
             gray_icon=get_last_url_part(ach['icongray']),
         )
+        if ach.get('description', ''):
+            achievement.description = ach['description']
+
         achievement.save()
 
 def load_player_achievements(steamid, appid):

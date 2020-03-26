@@ -25,7 +25,8 @@ SECRET_KEY = os.getenv('STA_SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "192.168.0.122"
+    "192.168.0.122",
+    "localhost"
 ]
 
 
