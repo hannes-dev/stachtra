@@ -9,8 +9,10 @@
 <body>
     {% if app_list %}
         {% for app in app_list %}
+        <a href="{% url 'sta:achievements' userid app.appid %}">
             <img src="{{ app.get_icon_url }}">
             <p>{{ app.name }}</p>
+        </a>
         {% endfor %}
     {% else %}
         <p>No apps have been imported, or you don't own any apps.</p>

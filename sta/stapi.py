@@ -15,6 +15,9 @@ def get_scema_for_game(appid, key=KEY):
 def get_player_achievements(appid, key=KEY, steamid=ID):
     return requests.get(f"https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v1/?key={key}&steamid={steamid}&appid={appid}")
 
+def get_achievement_percent(appid):
+    return requests.get(f"https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2/?gameid={appid}")
+
 def get_player_summary(steamid=ID, key=KEY):
     return requests.get(f"https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key={key}&steamids={steamid}")
 
@@ -49,12 +52,17 @@ def load_player_apps(steamid=ID):
 def load_achievements(appid):
     app = App.objects.get(appid=appid)
     achievements = get_scema_for_game(appid).json()['game']['availableGameStats']['achievements']
+
+    percentages = get_achievement_percent(appid).json()['achievementpercentages']['achievements']
+    percentages = {x['name']: x['percent'] for x in percentages}
+
     for ach in achievements:
         achievement = Achievement(
             app=app,
             name=ach['name'],
             display_name=ach['displayName'],
             description=ach.get('description', ''),
+            percentage=percentages[ach['name']],
             hidden=ach['hidden'] == 1,
             icon=get_last_url_part(ach['icon']),
             gray_icon=get_last_url_part(ach['icongray']),

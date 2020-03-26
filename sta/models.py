@@ -36,6 +36,7 @@ class Achievement(models.Model):
     name = models.CharField(max_length=30, primary_key=True)
     display_name = models.CharField(max_length=30)
     description = models.CharField(max_length=60)
+    percentage = models.DecimalField(max_digits=5, decimal_places=2)
     hidden = models.BooleanField()
     icon = models.CharField(max_length=50)
     gray_icon = models.CharField(max_length=50)
@@ -46,7 +47,9 @@ class Achievement(models.Model):
         return f"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/{appid}/{icon}"
     
     def get_gray_icon_url(self):
-        return
+        appid = self.app.appid
+        icon = self.gray_icon
+        return f"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/{appid}/{icon}"
 
     class Meta:
         unique_together = ['name', 'app']

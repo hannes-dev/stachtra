@@ -2,18 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Achievements</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'sta/achievements.css' %}">
 </head>
 <body>
+    <div class="lists">
     {% if ach_list %}
-        {% for ach in ach_list %}
-            <div>
-                <img src="{{ ach.get_icon_url }}">
-                <p>{{ ach.display_name }}</p>
+        <div class="list">
+            <h2>Unachieved</h2>
+            {% for ach in ach_list %}
+            {% if not ach.achieved %}
+            <div class="achievement">
+                <img src="{{ ach.get_gray_icon_url }}">
+                <div class="achievement__info">
+                    <div class="achievement__title_description">
+                        <div class="achievement__title">{{ ach.display_name }}</div>
+                        <div class="achievement__description">{{ ach.description }}</div>
+                    </div>
+                        <div class="achievement__percentage">{{ ach.percentage }}%</div>
+                </div>
             </div>
-        {% endfor %}
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="list">
+            <h2>Achieved</h2>
+            {% for ach in ach_list %}
+            {% if ach.achieved %}
+            <div class="achievement">
+                <img src="{{ ach.get_icon_url }}">
+                <div class="achievement__info">
+                    <div class="achievement__title_description">
+                        <div class="achievement__title">{{ ach.display_name }}</div>
+                        <div class="achievement__description">{{ ach.description }}</div>
+                    </div>
+                        <div class="achievement__percentage">{{ ach.percentage }}%</div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+    </div>
     {% else %}
         <p>No achievements found</p>
     {% endif %}
+    </div>
 </body>
 </html>
