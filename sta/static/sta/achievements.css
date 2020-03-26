@@ -1,0 +1,59 @@
+html, body {
+    margin: 0px;
+    padding: 0px;
+    background-color: #121212;
+    color: white;
+    font-family: sans-serif;
+}
+
+img {
+    border-radius: 6px;
+}
+
+.lists {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    margin: 0.2rem;
+    width: 40%;
+}
+
+.achievement {
+    display: flex;
+    margin: 0.2rem;
+    padding: 0.4rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    width: 100%;
+    border-radius: 6px;
+}
+
+.achievement__info {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0.4rem;
+    width: 100%;
+}
+
+.achievement__title_description {
+    display: flex;
+    flex-direction: column;
+}
+
+.achievement__title {
+    font-size: 17px;
+}
+
+.achievement__description {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.achievement__percentage {
+    font-size: 12px;
+    align-self: center;
+    margin-right: 0.2rem;
+}
