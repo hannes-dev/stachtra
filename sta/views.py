@@ -24,7 +24,7 @@ def achievements(request, userid, appid):
     achieved = 0
     unachieved = 0
     
-    for ach in ach_list:
+    for ach in achievements:
         if ach.achieved:
             achieved += 1
         else:
