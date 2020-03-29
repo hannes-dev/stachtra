@@ -1,6 +1,7 @@
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Case, BooleanField, Value, When
+from django.urls import reverse
 from sta.models import App, User, Achievement
 from sta.stapi import load_player, load_player_apps, load_achievements, load_player_achievements
 from sta.utils import determine_user
@@ -30,7 +31,11 @@ def achievements(request, userid, appid):
         else:
             unachieved += 1
             
-    return render(request, "sta/achievements.html", {"ach_list": achievements, "achieved": achieved, "unachieved": unachieved})
+    return render(request, "sta/achievements.html", {"ach_list": achievements, "achieved": achieved, "unachieved": unachieved, "userid": userid, "appid": appid})
+
+def import_achievement_progress(request, userid, appid):
+    load_player_achievements(userid, appid)
+    return HttpResponseRedirect(reverse('sta:achievements', args=[userid, appid]))
      
 def import_user(request, userid):
     load_player(userid)
@@ -40,10 +45,7 @@ def import_apps(request, userid):
     load_player_apps(userid)
     return render(request, "sta/success.html", {"item": "apps"})
 
-def import_achievements(request, appid):
+def import_achievements(request, userid, appid):
     load_achievements(appid)
-    return render(request, "sta/success.html", {"item": f"achievements for {appid}"})
-
-def import_achievement_progress(request, userid, appid):
     load_player_achievements(userid, appid)
-    return render(request, "sta/success.html", {"item": f"achievements for user {userid}"})
+    return HttpResponseRedirect(reverse('sta:achievements', args=[userid, appid]))

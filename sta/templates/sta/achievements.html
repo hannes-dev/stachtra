@@ -8,10 +8,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'sta/achievements.css' %}">
 </head>
 <body>
-    <div class="lists">
     {% if ach_list %}
+    <div class="lists">
         <div class="list">
-            <h2>Unachieved ({{ unachieved }})</h2>
+            <div class="list__title">
+                <h2>Unachieved ({{ unachieved }})</h2>
+            </div>
             {% for ach in ach_list %}
             {% if not ach.achieved %}
             <div class="achievement">
@@ -28,7 +30,10 @@
             {% endfor %}
         </div>
         <div class="list">
-            <h2>Achieved ({{ achieved }})</h2>
+            <div class="list__title">
+                <h2>Achieved ({{ achieved }})</h2>
+                <a href="{% url 'sta:import_player_achievements' userid appid %}">Reload</a>
+            </div>
             {% for ach in ach_list %}
             {% if ach.achieved %}
             <div class="achievement">
@@ -45,7 +50,10 @@
             {% endfor %}
     </div>
     {% else %}
+    <div class="no_achievements">
         <p>No achievements found</p>
+        <a href="{% url 'sta:import_achievements' userid appid %}">click here to import them</a>
+    </div>
     {% endif %}
     </div>
 </body>
