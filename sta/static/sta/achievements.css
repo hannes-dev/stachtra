@@ -8,6 +8,8 @@ html, body {
 
 img {
     border-radius: 6px;
+    width: 64px;
+    height: 64px;
 }
 
 a {
