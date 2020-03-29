@@ -11,7 +11,7 @@
     <div class="lists">
     {% if ach_list %}
         <div class="list">
-            <h2>Unachieved</h2>
+            <h2>Unachieved ({{ unachieved }})</h2>
             {% for ach in ach_list %}
             {% if not ach.achieved %}
             <div class="achievement">
@@ -28,7 +28,7 @@
             {% endfor %}
         </div>
         <div class="list">
-            <h2>Achieved</h2>
+            <h2>Achieved ({{ achieved }})</h2>
             {% for ach in ach_list %}
             {% if ach.achieved %}
             <div class="achievement">
