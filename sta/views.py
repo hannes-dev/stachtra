@@ -20,7 +20,17 @@ def apps(request, userid):
 def achievements(request, userid, appid):
     user = determine_user(userid)
     achievements = Achievement.objects.filter(app=App.objects.get(pk=appid)).annotate(achieved=Case(When(users=user, then=Value(True)), default=Value(False), output_field=BooleanField())).order_by('-percentage')
-    return render(request, "sta/achievements.html", {"ach_list": achievements})
+    
+    achieved = 0
+    unachieved = 0
+    
+    for ach in ach_list:
+        if ach.achieved:
+            achieved += 1
+        else:
+            unachieved += 1
+            
+    return render(request, "sta/achievements.html", {"ach_list": achievements, "achieved": achieved, "unachieved": unachieved})
      
 def import_user(request, userid):
     load_player(userid)
